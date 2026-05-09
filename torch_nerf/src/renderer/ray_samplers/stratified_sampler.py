@@ -69,8 +69,15 @@ class StratifiedSampler(RaySamplerBase):
         far = ray_bundle.fars[0].item()
 
         # ============================
-        # Task 1-2. Implement Ray Sampling
-        # DO NOT change the code outside this part.
+
+        t_bins = self.create_t_bins(num_bin = num_sample, device = device)
+        t_bins = t_bins[None, :].expand(num_ray, num_sample)
+        random_offset_scaled_to_one_bin_width = (torch.rand_like(t_bins)) * (1.0 / num_sample)
+        t_samples = t_bins + random_offset_scaled_to_one_bin_width
+        t_samples = self.map_t_to_euclidean(t_samples, near, far)
+
+
+
         
         # ============================
 

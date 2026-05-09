@@ -41,8 +41,12 @@ class QuadratureIntegrator(IntegratorBase):
                 where opacity (alpha) is defined as 1 - exp(-sigma * delta).
         """
         # ============================
-        # Task 2. Implement Volume Rendering Equation
-        # DO NOT change the code outside this part.
+        alpha = 1.0 - torch.exp(-sigma * delta)
+        t = torch.cumprod(torch.cat([torch.ones_like(alpha[:, :1]), 1.0 - alpha + 1e-10], dim=-1), dim=-1)[:, :-1]
+        w_i = alpha * t
+        rgb = torch.sum(w_i[:, :, None] * radiance, dim=1)
+        
+
         
         # ============================
 

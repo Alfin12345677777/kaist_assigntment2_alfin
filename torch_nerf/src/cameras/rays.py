@@ -80,9 +80,7 @@ class RaySamples:
         t_samples: Float[torch.Tensor, "num_ray num_sample"] = self.t_samples
 
         # ============================
-        # Task 1-1. Implement Ray Sampling
-        # DO NOT change the code outside this part.
-        
+        sample_coords: Float[torch.Tensor, "num_ray num_sample 3"] = ray_origins[:, None, :] + ray_directions[:, None, :] * t_samples[:, :, None]
         # ============================
 
         return sample_coords
