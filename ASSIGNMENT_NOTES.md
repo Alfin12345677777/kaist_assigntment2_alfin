@@ -136,6 +136,8 @@ T_i = product of (1 - α_j), for all samples before i
 
 This needs to be an exclusive cumulative product because the current sample should only be affected by the samples before it, not by itself.
 
+Transmittance follows the same principle as the Beer-Lambert law in physics — light traveling through a medium loses intensity exponentially based on the density of the material it passes through, which is exactly what $T_i = \exp(-\sum_{j<i} \sigma_j \delta_j)$ models.
+
 Implementation:
 
 ```python
@@ -196,6 +198,8 @@ I also learned why stratified sampling is useful. If the same fixed points are a
 
 For volume rendering, the most important idea is that points closer to the camera can block points behind them. This is why transmittance is needed.
 
+One crucial component I did not implement but relied on is positional encoding — raw $(x, y, z)$ coordinates are mapped to high-frequency sinusoidal features before being fed into the MLP, which allows the network to learn fine details like sharp edges and textures that a plain MLP would otherwise smooth over.
+
 ---
 
 ## Evaluation
@@ -207,7 +211,7 @@ The assignment uses LPIPS and PSNR for evaluation.
 | LPIPS ↓ | Perceptual image similarity. Lower is better.         | ≤ 0.06                 |
 | PSNR ↑  | Image reconstruction quality in dB. Higher is better. | ≥ 28.00                |
 
-Expected result with the provided checkpoint:
+Quantitative results from my implementation on the lego scene using the provided checkpoint:
 
 ```text
 LPIPS = 0.0482
