@@ -214,11 +214,13 @@ The assignment uses LPIPS and PSNR for evaluation.
 Quantitative results from my implementation on the lego scene using the provided checkpoint:
 
 ```text
-LPIPS = 0.0482
-PSNR  = 28.9618
+LPIPS = 0.0474
+PSNR  = 29.0531
 ```
 
-This satisfies the full-credit requirement.
+![Evaluation Results](docs/images/evaluation_results.png)
+
+This satisfies the full-credit requirement (LPIPS ≤ 0.06 and PSNR ≥ 28.00).
 
 ---
 
